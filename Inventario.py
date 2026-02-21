@@ -23,8 +23,9 @@ def cargar_inventario():
                 partes = linea.strip().split(",")
                 productos = {
                     "nombre": partes [0],
-                    "cantidad": int(partes[1]),
-                    "precio": float(partes[2])
+                    "categoria":partes[1],
+                    "cantidad": int(partes[2]),
+                    "precio": float(partes[3])
                 }
                 inventario.append(productos)
         print (f"Inventario cargado: {len(inventario)}")
@@ -36,7 +37,7 @@ def cargar_inventario():
 def guardar_en_inventario(inventario):
     with open("productos.txt", "a", encoding="utf-8") as archivo:
         for producto in inventario:
-            linea = f"{producto['nombre']},{producto['cantidad']},{producto['precio']}\n"
+            linea = f"{producto['nombre']},{producto['categoria']},{producto['cantidad']},{producto['precio']}\n"
             archivo.write(linea)
         print ("Producto guardado en el archivo")
     
@@ -51,14 +52,18 @@ def menu():
 
 def agregar_producto():
     nombre = input("Nombre del producto: ")
+    categoria = input("Categoría: ")
     cantidad = int(input("Cantidad: "))
     precio = float(input("Precio: "))
+    
     
 
     producto = {
         "nombre": nombre,
+        "categoria": categoria,
         "cantidad": cantidad,
         "precio": precio
+        
     }
     
     inventario.append(producto)
@@ -71,6 +76,7 @@ def ver_inventario():
         for producto in inventario:
             total = producto["cantidad"] * producto["precio"]
             print(f"Producto: {producto['nombre']}")
+            print(f"categoria: {producto['categoria']}")
             print(f"Cantidad: {producto['cantidad']}")
             print(f"Precio: ${producto['precio']}")
             print(f"Total: ${total}")
@@ -85,6 +91,7 @@ def buscar_producto():
         if producto["nombre"] == nombre_buscar:
             encontrado = True
             print(f"Producto encontrado:")
+            print(f"categoria: {producto['categoria']}")
             print(f"Cantidad: {producto['cantidad']}")
             print(f"Precio: ${producto['precio']}")
             break  
